@@ -9,6 +9,7 @@ export const CartProvider = ({ children }) =>{
 
     useEffect(()=>{
         fetchTopCartData()
+        getUserData()
     },[])
 
     const fetchTopCartData = async () => {
@@ -22,6 +23,11 @@ export const CartProvider = ({ children }) =>{
         },0)
         const totalItem = data[0]?.items.length;
         setCartDetails({subtotal,totalItem})
+    }
+
+    const getUserData = () =>{
+        const userData = localStorage.getItem('user');
+        setUserData(JSON.parse(userData));
     }
 
     return (
