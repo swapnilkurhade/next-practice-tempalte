@@ -6,11 +6,12 @@ import Link from "next/link"
 
 export const Navbar = () => {
 
-	const { userData, setUserData , cartDetails } = useCart();
+	const { userData, setUserData, cartDetails, fetchTopCartData} = useCart();
 
 	const handleOut = () => {
 		localStorage.removeItem('user');
 		setUserData(null)
+		fetchTopCartData()
 	}
 
 	return (
@@ -47,8 +48,16 @@ export const Navbar = () => {
 							<span className="text-lg font-bold">{cartDetails?.totalItem || 0} Items</span>
 							<span className="text-info">Subtotal: ${cartDetails?.subtotal || 0}</span>
 							<div className="card-actions">
-								<Link href={'/cart'} className="btn btn-primary btn-block">View cart
-								</Link>
+								{
+									userData ?
+										<Link href={'/cart'} className="btn btn-primary btn-block">View cart
+										</Link>
+										:
+
+										<Link href={'/login'} className="btn btn-primary btn-block">Login
+										</Link>
+								}
+
 							</div>
 						</div>
 					</div>
@@ -73,9 +82,9 @@ export const Navbar = () => {
 						{/* <li><a>Settings</a></li> */}
 						{
 							userData ?
-							<li onClick={handleOut}><a>Logout</a></li>
+								<li onClick={handleOut}><a>Logout</a></li>
 								:
-							<li><Link href={'/login'}>Login</Link></li>
+								<li><Link href={'/login'}>Login</Link></li>
 						}
 					</ul>
 				</div>

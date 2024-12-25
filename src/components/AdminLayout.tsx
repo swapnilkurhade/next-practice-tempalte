@@ -25,7 +25,7 @@ export const AdminLayout = ({ children }: Readonly<{ children: React.ReactNode }
 
                     <div className="flex h-screen">
                         {/* Sidebar */}
-                        <aside className="w-64 bg-gray-800 text-gray-100">
+                        <aside className="w-64 bg-gray-800 text-gray-100  ">
                             <div className="p-4 text-xl font-bold border-b border-gray-700">
                                 Admin Panel
                             </div>
@@ -58,9 +58,9 @@ export const AdminLayout = ({ children }: Readonly<{ children: React.ReactNode }
                         </aside>
 
                         {/* Main Content */}
-                        <div className="flex flex-col flex-1">
+                        <div className="flex flex-col flex-1  ">
                             {/* Header */}
-                            <header className="flex items-center justify-between p-4 bg-gray-100 shadow-md">
+                            <header className="flex items-center justify-between p-4 bg-gray-100 shadow-md ">
                                 <h1 className="text-lg font-bold">Admin Panel</h1>
                                 <button className="px-4 py-2 text-sm text-gray-800 bg-gray-200 rounded hover:bg-gray-300">
                                     Logout

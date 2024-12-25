@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import 'dotenv/config'
 import { useCart } from 'context/cartContext'
+import { useRouter } from 'next/navigation'
 
 
 const ProductCard = ({ product, handleAdd }: any) => {
@@ -9,8 +10,8 @@ const ProductCard = ({ product, handleAdd }: any) => {
         <div className="card bg-base-100 w-[calc(33.333%-1rem)] shadow-xl m-2 " >
             <figure>
                 <img
-                    src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                    alt="Shoes" />
+                    src={product?.img || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR905Tkp8MLUa9Z-kQ04XPNeODOHIM2WNJPIQ&s'}
+                    alt="Product" />
             </figure>
             <div className="card-body">
                 <h2 className="card-title">{product?.name}</h2>
@@ -27,8 +28,9 @@ const ProductCard = ({ product, handleAdd }: any) => {
 
 const page = () => {
 
-    const {fetchTopCartData} =  useCart()
+    const { fetchTopCartData } = useCart()
     const [products, setProducts] = useState([])
+    const router = useRouter()
 
     useEffect(() => {
         fetchProducts()
@@ -45,30 +47,33 @@ const page = () => {
         fetchProducts(e.target.ariaLabel)
     }
 
-    const handleAdd = async(productId: String) => {
+    const handleAdd = async (productId: String) => {
         const user = localStorage.getItem('user');
         const userId = user && JSON.parse(user)._id
-        console.log(userId, productId);
 
-        const productPayload = {
-            userId: userId,
-            items: [
-                {
-                    productId: productId,
-                    quantity: 1
-                }
-            ],
+        if (userId) {
+            const productPayload = {
+                userId: userId,
+                items: [
+                    {
+                        productId: productId,
+                        quantity: 1
+                    }
+                ],
+            }
+
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/add`, {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(productPayload)
+            })
+
+            fetchTopCartData()
+        } else {
+            router.push('/login')
         }
-
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/add`,{
-            method : 'POST',
-            headers : {
-                "Content-Type" : "application/json"
-            },
-            body : JSON.stringify(productPayload) 
-        })
-
-        fetchTopCartData()
     }
 
     return (
@@ -77,7 +82,7 @@ const page = () => {
                 <div role="tablist" className="tabs tabs-lifted">
                     <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="men" defaultChecked onChange={handleTabChange} />
                     <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
-                        <div className='flex'>
+                        <div className='flex flex-wrap justify-between'>
                             {
                                 products.map((product: any) => (
                                     <ProductCard product={product} key={product._id} handleAdd={handleAdd} />
@@ -109,7 +114,7 @@ const page = () => {
                         <div className='flex'>
                             {
                                 products.map((product: any) => (
-                                    <ProductCard product={product} key={product._id} handleAdd={handleAdd}/>
+                                    <ProductCard product={product} key={product._id} handleAdd={handleAdd} />
                                 ))
                             }
                         </div>

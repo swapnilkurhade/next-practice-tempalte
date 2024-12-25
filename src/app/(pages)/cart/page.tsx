@@ -10,8 +10,8 @@ const page = () => {
         name: string;
         price: number;
         quantity: number;
-        product : {
-            _id : string
+        product: {
+            _id: string
         }
     }
     const { fetchTopCartData } = useCart()
@@ -30,7 +30,7 @@ const page = () => {
         console.log(data);
         setCartData(data[0]?.items)
 
-        if(data.length == 0 || data[0]?.items.length == 0){
+        if (data.length == 0 || data[0]?.items.length == 0) {
             router.push('/')
         }
     }
@@ -56,8 +56,8 @@ const page = () => {
             <div className="card bg-base-100 w-[calc(33.333%-1rem)] shadow-xl m-2 " >
                 <figure>
                     <img
-                        src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                        alt="Shoes" />
+                        src={product?.product.img || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR905Tkp8MLUa9Z-kQ04XPNeODOHIM2WNJPIQ&s'}
+                        alt="Product" />
                 </figure>
                 <div className="card-body">
                     <h2 className="card-title">{product?.product.name}</h2>
@@ -75,11 +75,34 @@ const page = () => {
     return (
         <>
             <div className='flex'>
-                {
+
+
+                {/* {
+                    
                     cartData?.map((product) => (
                         <ProductInCard product={product} removeCartProduct={removeCartProduct} key={product?.product._id} />
                     ))
+                } */}
+
+                {
+                    cartData?.length > 0 ?
+                        (
+                            <>
+                                {
+                                    cartData?.map((product) => (
+                                        <ProductInCard product={product} removeCartProduct={removeCartProduct} key={product?.product._id} />
+                                    ))
+                                }
+                            </>
+                        ) :
+                        (
+                            <div className="flex items-center justify-center h-64 text-gray-500">
+                                Your cart is empty. Start adding some products!
+                            </div>
+                        )
                 }
+
+
             </div>
         </>
     )

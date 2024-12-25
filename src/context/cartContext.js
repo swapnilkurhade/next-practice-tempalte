@@ -15,19 +15,22 @@ export const CartProvider = ({ children }) =>{
     const fetchTopCartData = async () => {
         const userData = localStorage.getItem('user');
         const userId = userData && JSON.parse(userData)._id;
-        const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/${userId}`);
-        const data = await result.json();
-
-        const subtotal = data[0]?.items.reduce((acc, curr)=>{
-            return acc + (Number(curr.product.price) * curr.quantity);
-        },0)
-        const totalItem = data[0]?.items.length;
-        setCartDetails({subtotal,totalItem})
+        if(userId){
+            const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/${userId}`);
+            const data = await result.json();
+            const subtotal = data[0]?.items.reduce((acc, curr)=>{
+                return acc + (Number(curr.product.price) * curr.quantity);
+            },0)
+            const totalItem = data[0]?.items.length;
+            setCartDetails({subtotal,totalItem})
+        }else{
+            setCartDetails({})
+        }
     }
 
     const getUserData = () =>{
         const userData = localStorage.getItem('user');
-        setUserData(JSON.parse(userData));
+        userData && setUserData(JSON.parse(userData));
     }
 
     return (
