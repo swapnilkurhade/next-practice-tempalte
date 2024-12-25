@@ -14,7 +14,7 @@ const page = () => {
             _id: string
         }
     }
-    const { fetchTopCartData } = useCart()
+    const { userData, fetchTopCartData, cartDetails } = useCart()
     const [cartData, setCartData] = useState<Product[]>([])
     const router = useRouter()
 
@@ -72,6 +72,34 @@ const page = () => {
         )
     }
 
+    const handleOrder = async () => {
+        const userData = localStorage.getItem('user');
+        const userId = userData && JSON.parse(userData)._id;
+
+        const orderpaylod = {
+            userId,
+            cartId: cartDetails.cartId,
+            total_price: cartDetails.subtotal,
+            payment_status: true
+        }
+
+        console.log(orderpaylod);
+
+        const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/order/create`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(orderpaylod)
+        })
+
+        const response = await result.json()
+
+        if(response.success){
+            alert('Order is placed...')
+            fetchTopCartData()
+            fetchData()
+        }
+    }
+
     return (
         <>
             <div className='flex'>
@@ -101,9 +129,8 @@ const page = () => {
                             </div>
                         )
                 }
-
-
             </div>
+            <button className="btn btn-warning w-full my-2" onClick={handleOrder}>Click to Order</button>
         </>
     )
 }

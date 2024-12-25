@@ -2,16 +2,20 @@
 
 import { useCart } from "context/cartContext"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 
 export const Navbar = () => {
 
-	const { userData, setUserData, cartDetails, fetchTopCartData} = useCart();
+	const router = useRouter()
+	const { userData, setUserData, cartDetails, fetchTopCartData } = useCart();
+
 
 	const handleOut = () => {
 		localStorage.removeItem('user');
 		setUserData(null)
 		fetchTopCartData()
+		router.push('/')
 	}
 
 	return (
@@ -48,6 +52,7 @@ export const Navbar = () => {
 							<span className="text-lg font-bold">{cartDetails?.totalItem || 0} Items</span>
 							<span className="text-info">Subtotal: ${cartDetails?.subtotal || 0}</span>
 							<div className="card-actions">
+
 								{
 									userData ?
 										<Link href={'/cart'} className="btn btn-primary btn-block">View cart
@@ -79,10 +84,13 @@ export const Navbar = () => {
 								<span className="badge">New</span>
 							</a>
 						</li> */}
-						{/* <li><a>Settings</a></li> */}
+
 						{
 							userData ?
-								<li onClick={handleOut}><a>Logout</a></li>
+								<>
+									<li><Link href={'/orders'}>My Orders</Link></li>
+									<li onClick={handleOut}><a>Logout</a></li>
+								</>
 								:
 								<li><Link href={'/login'}>Login</Link></li>
 						}

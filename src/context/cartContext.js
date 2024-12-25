@@ -22,7 +22,8 @@ export const CartProvider = ({ children }) =>{
                 return acc + (Number(curr.product.price) * curr.quantity);
             },0)
             const totalItem = data[0]?.items.length;
-            setCartDetails({subtotal,totalItem})
+            const cartId = data[0]?._id;
+            setCartDetails({subtotal,totalItem, cartId})
         }else{
             setCartDetails({})
         }
