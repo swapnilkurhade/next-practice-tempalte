@@ -44,15 +44,15 @@ const page = () => {
         <>
 
 
-            <div className="flex h-screen">
+            <div className="flex flex-col h-screen">
 
-                <div className="w-1/2 p-8 ">
+                <div >
                     <h2 className="text-xl font-bold">Add Product</h2>
                     <div className="mb-5">
                         <form onSubmit={handleSave}>
                             <div className="flex flex-col">
                                 <div className="mb-1">
-                                    <label className="input input-bordered flex items-center gap-2 my-2">
+                                    <label className="input input-bordered flex items-center  my-2">
                                         <input type="text" name="name" placeholder="Product Name" onChange={handleChange} autoFocus />
                                     </label>
                                 </div>
@@ -65,7 +65,7 @@ const page = () => {
                                     </select>
                                 </div>
                                 <div className="mb-1">
-                                    <label className="input input-bordered flex items-center gap-2 my-2">
+                                    <label className="input input-bordered flex items-center  my-2">
                                         <input type="number" name="price" placeholder="Price" onChange={handleChange} />
                                     </label>
                                 </div>
@@ -73,7 +73,7 @@ const page = () => {
                                     <textarea className="textarea textarea-bordered w-full" name="description" placeholder="Description" onChange={handleChange}></textarea>
                                 </div>
                                 <div className="mb-1">
-                                    <label className="input input-bordered flex items-center gap-2 my-2">
+                                    <label className="input input-bordered flex items-center  my-2">
                                         <input type="url" name="img" placeholder="Image Link" onChange={handleChange} />
                                     </label>
                                 </div>
@@ -84,7 +84,8 @@ const page = () => {
                 </div>
 
 
-                <div className="w-1/2 p-8 ">
+                <div >
+                    <hr className="my-5"></hr>
                     <h2 className="text-xl font-bold">Product List</h2>
                     <ProductTableData />
                 </div>

@@ -14,8 +14,8 @@ export const CartProvider = ({ children }) =>{
 
     const fetchTopCartData = async () => {
         const userData = localStorage.getItem('user');
-        const userId = userData && JSON.parse(userData)._id;
-        if(userId){
+        if(userData !== undefined){
+            const userId = JSON.parse(userData)._id;
             const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/${userId}`);
             const data = await result.json();
             const subtotal = data[0]?.items.reduce((acc, curr)=>{
@@ -31,7 +31,9 @@ export const CartProvider = ({ children }) =>{
 
     const getUserData = () =>{
         const userData = localStorage.getItem('user');
-        userData && setUserData(JSON.parse(userData));
+        if(userData !== undefined){
+            setUserData(JSON.parse(userData));
+        }
     }
 
     return (

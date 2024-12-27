@@ -5,18 +5,23 @@ import { useCart } from 'context/cartContext'
 import { useRouter } from 'next/navigation'
 
 
+export function truncateText(text: string, limit: number) {
+    return text.length > limit ? text.slice(0, 35) + "..." : text
+}
+
 const ProductCard = ({ product, handleAdd }: any) => {
     return (
         <div className="card bg-base-100 w-[calc(33.333%-1rem)] shadow-xl m-2 " >
-            <figure>
+            <figure className='w-full h-[320px]'>
                 <img
                     src={product?.img || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR905Tkp8MLUa9Z-kQ04XPNeODOHIM2WNJPIQ&s'}
-                    alt="Product" />
+                    alt="Product"
+                />
             </figure>
             <div className="card-body">
                 <h2 className="card-title">{product?.name}</h2>
-                <p>{product?.description}</p>
-                <p>${product?.price}</p>
+                <p>{truncateText(product?.description, 20)}</p>
+                <h5>₹<b>{product?.price}</b></h5>
                 <div className="card-actions justify-end">
                     <button className="btn btn-primary" onClick={() => { handleAdd(product?._id) }}>Add To Cart</button>
                 </div>
@@ -100,7 +105,7 @@ const page = () => {
                         onChange={handleTabChange}
                     />
                     <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
-                        <div className='flex'>
+                        <div className='flex flex-wrap justify-between'>
                             {
                                 products.map((product: any) => (
                                     <ProductCard product={product} key={product._id} handleAdd={handleAdd} />
@@ -111,7 +116,7 @@ const page = () => {
 
                     <input type="radio" name="my_tabs_2" role="tab" className="tab" aria-label="kids" onChange={handleTabChange} />
                     <div role="tabpanel" className="tab-content bg-base-100 border-base-300 rounded-box p-6">
-                        <div className='flex'>
+                        <div className='flex flex-wrap justify-between'>
                             {
                                 products.map((product: any) => (
                                     <ProductCard product={product} key={product._id} handleAdd={handleAdd} />

@@ -29,7 +29,7 @@ const ProductTableData = () => {
 
     return (
         <>
-            <table>
+            <table className="table">
                 <thead>
                     <tr>
                         <th className="text-center p-4 border">Product</th>

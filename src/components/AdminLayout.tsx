@@ -22,10 +22,8 @@ export const AdminLayout = ({ children }: Readonly<{ children: React.ReactNode }
                 <body
                     className={`${geistSans.variable} ${geistMono.variable} antialiased`}
                 >
-
-                    <div className="flex h-screen">
-                        {/* Sidebar */}
-                        <aside className="w-64 bg-gray-800 text-gray-100  ">
+                    <div className="flex ">
+                        <aside className="w-64 h-screen fixed bg-gray-800 text-gray-100">
                             <div className="p-4 text-xl font-bold border-b border-gray-700">
                                 Admin Panel
                             </div>
@@ -56,22 +54,16 @@ export const AdminLayout = ({ children }: Readonly<{ children: React.ReactNode }
                                 </a>
                             </nav>
                         </aside>
-
-                        {/* Main Content */}
-                        <div className="flex flex-col flex-1  ">
-                            {/* Header */}
+                        <div className="flex flex-col flex-1  ml-64">
                             <header className="flex items-center justify-between p-4 bg-gray-100 shadow-md ">
                                 <h1 className="text-lg font-bold">Admin Panel</h1>
                                 <button className="px-4 py-2 text-sm text-gray-800 bg-gray-200 rounded hover:bg-gray-300">
                                     Logout
                                 </button>
                             </header>
-
-                            {/* Content Area */}
                             <main className="flex-1 p-4 bg-gray-50">{children}</main>
                         </div>
-                    </div>
-
+                    </div> 
                 </body>
             </html>
         </>

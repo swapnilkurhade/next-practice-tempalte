@@ -22,8 +22,8 @@ export const Navbar = () => {
 
 		<div className="navbar bg-base-100">
 			<div className="flex-1">
-				<Link className="btn btn-ghost text-xl" href={'/'}>
-					SwapMart
+				<Link className="btn btn-ghost text-xl" href="/">
+					<img src="trendmart.png" height={150} width={150} alt="Trendmart Logo" />
 				</Link>
 			</div>
 			<div className="flex-none">

@@ -1,4 +1,5 @@
 "use client"
+import { truncateText } from "app/page";
 import { useCart } from "context/cartContext";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -54,14 +55,14 @@ const page = () => {
     const ProductInCard = ({ product, removeCartProduct }: any) => {
         return (
             <div className="card bg-base-100 w-[calc(33.333%-1rem)] shadow-xl m-2 " >
-                <figure>
+                <figure className="w-full h-[320px]">
                     <img
                         src={product?.product.img || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR905Tkp8MLUa9Z-kQ04XPNeODOHIM2WNJPIQ&s'}
                         alt="Product" />
                 </figure>
                 <div className="card-body">
                     <h2 className="card-title">{product?.product.name}</h2>
-                    <p>{product?.product.description}</p>
+                    <p>{truncateText(product?.product.description, 35)}</p>
                     <p>${product?.product.price}</p>
                     <p>Quantity : {product?.quantity}</p>
                     <div className="card-actions justify-end">
@@ -104,14 +105,6 @@ const page = () => {
         <>
             <div className='flex'>
 
-
-                {/* {
-                    
-                    cartData?.map((product) => (
-                        <ProductInCard product={product} removeCartProduct={removeCartProduct} key={product?.product._id} />
-                    ))
-                } */}
-
                 {
                     cartData?.length > 0 ?
                         (
@@ -130,7 +123,7 @@ const page = () => {
                         )
                 }
             </div>
-            <button className="btn btn-warning w-full my-2" onClick={handleOrder}>Click to Order</button>
+            <button className="btn btn-warning w-full mb-[80px]" onClick={handleOrder}>Click to Order</button>
         </>
     )
 }

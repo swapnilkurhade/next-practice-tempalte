@@ -5,7 +5,7 @@ import React from 'react'
 
 const page = () => {
 
-    const {setUserData} = useCart()
+    const {setUserData , fetchTopCartData } = useCart()
     const router = useRouter()
     const [userData, setUserDaata] = React.useState({
         'username':'', 'password':''
@@ -32,7 +32,8 @@ const page = () => {
         const user = await res.json();
         localStorage.setItem('user', JSON.stringify(user[0]) );
         setUserData(user[0])
-        router.push('/')
+        router.push('/');
+        fetchTopCartData();
     }
 
     return (
