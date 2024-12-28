@@ -14,7 +14,6 @@ const ProductTableData = () => {
         const response = await result.json();
         console.log(response);
         setProductData(response)
-        getData()
     }
 
     const handleDelete = async (id) => {
@@ -24,7 +23,7 @@ const ProductTableData = () => {
         })
         const response = await result.json();
         console.log('response', response);
-
+        getData()
     }
 
     return (

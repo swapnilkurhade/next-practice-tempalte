@@ -32,7 +32,7 @@ const page = () => {
 
     return (
         <>
-            <table>
+            <table className="table">
                 <thead>
                     <tr>
                         <th className="text-center p-4 border">User Name</th>

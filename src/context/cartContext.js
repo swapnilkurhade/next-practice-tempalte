@@ -14,7 +14,7 @@ export const CartProvider = ({ children }) =>{
 
     const fetchTopCartData = async () => {
         const userData = localStorage.getItem('user');
-        if(userData !== undefined){
+        if(userData !== null){
             const userId = JSON.parse(userData)._id;
             const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart/${userId}`);
             const data = await result.json();
@@ -31,7 +31,7 @@ export const CartProvider = ({ children }) =>{
 
     const getUserData = () =>{
         const userData = localStorage.getItem('user');
-        if(userData !== undefined){
+        if(userData !== null){
             setUserData(JSON.parse(userData));
         }
     }

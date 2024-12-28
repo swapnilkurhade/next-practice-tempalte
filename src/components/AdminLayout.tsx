@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Navbar } from "./Navbar";
+import { useRouter } from "next/navigation";
 
 
 
@@ -15,6 +16,12 @@ const geistMono = Geist_Mono({
 
 export const AdminLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
 
+    const router = useRouter();
+
+    const handleOut = () => {
+		localStorage.removeItem('user');
+		router.push('/')
+	}
 
     return (
         <>
@@ -57,7 +64,7 @@ export const AdminLayout = ({ children }: Readonly<{ children: React.ReactNode }
                         <div className="flex flex-col flex-1  ml-64">
                             <header className="flex items-center justify-between p-4 bg-gray-100 shadow-md ">
                                 <h1 className="text-lg font-bold">Admin Panel</h1>
-                                <button className="px-4 py-2 text-sm text-gray-800 bg-gray-200 rounded hover:bg-gray-300">
+                                <button className="px-4 py-2 text-sm text-gray-800 bg-gray-200 rounded hover:bg-gray-300" onClick={handleOut}>
                                     Logout
                                 </button>
                             </header>
