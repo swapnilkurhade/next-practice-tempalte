@@ -33,7 +33,7 @@ const ProductCard = ({ product, handleAdd }: any) => {
 
 const page = () => {
 
-    const { fetchTopCartData } = useCart()
+    const { fetchTopCartData, userData } = useCart()
     const [products, setProducts] = useState([])
     const router = useRouter()
 
@@ -42,9 +42,16 @@ const page = () => {
     }, [])
 
     const fetchProducts = async (type: String = 'men') => {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${type}`);
+
+        const user = localStorage.getItem('user');
+        const token = user && JSON.parse(user).token
+
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${type}`,{
+            headers : {
+                Authorization : `Bearer ${token}`
+            }
+        });
         const data = await res.json();
-        console.log(data)
         setProducts(data)
     }
 

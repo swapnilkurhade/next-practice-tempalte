@@ -30,8 +30,8 @@ const page = () => {
         })
 
         const user = await res.json();
-        localStorage.setItem('user', JSON.stringify(user[0]) );
-        setUserData(user[0])
+        localStorage.setItem('user', JSON.stringify({...user[0], token : user.token}));
+        setUserData({...user[0], token : user.token})
         router.push('/');
         fetchTopCartData();
     }
